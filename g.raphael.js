@@ -767,7 +767,7 @@ Raphael.g = {
         dashsize = dashsize == null ? 2 : dashsize;
         type = type || "t";
         steps = steps || 10;
-        remove_overlaping = remove_overlaping || true;
+        remove_overlaping = remove_overlaping || 'no';
         paper = arguments[arguments.length-1] //paper is always last argument
 
         var path = type == "|" || type == " " ? ["M", x + .5, y, "l", 0, .001] : orientation == 1 || orientation == 3 ? ["M", x + .5, y, "l", 0, -length] : ["M", x, y + .5, "l", length, 0],
@@ -817,7 +817,7 @@ Raphael.g = {
 
                 var bb = txt.getBBox();
 
-                if (prev >= bb.x - 5 && remove_overlaping) {
+                if (prev >= bb.x - 5 && !remove_overlaping == 'no') {
                     text.pop(text.length - 1).remove();
                 } else {
                     prev = bb.x + bb.width;
