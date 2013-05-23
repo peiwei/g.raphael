@@ -811,6 +811,9 @@ Raphael.g = {
                 txt = 0,
                 prev = 0;
 
+            // preveting infinite loop
+            dx = dx != 0 ? dx : 1;
+
             while (X <= x + length) {
                 type != "-" && type != " " && (path = path.concat(["M", X + .5, y - (type == "+" ? dashsize : !!orientation * dashsize * 2), "l", 0, dashsize * 2 + 1]));
                 text.push(txt = paper.text(X, y + addon, (labels && labels[j++]) || (Math.round(label) == label ? label : +label.toFixed(rnd))).attr(txtattr));
