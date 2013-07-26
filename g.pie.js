@@ -58,6 +58,7 @@
             total = 0,
             others = 0,
             cut = opts.maxSlices || 100,
+            reformat_numbers = reformat_numbers || false;
             minPercent = parseFloat(opts.minPercent) || 1,
             defcut = Boolean( minPercent );
 
@@ -256,7 +257,7 @@
                     txt;
 
                 values[i].others && (labels[j] = otherslabel || "Others");
-                labels[j] = chartinst.labelise(labels[j], values[i], total);
+                labels[j] = chartinst.labelise(labels[j], values[i], total, opts.reformat_numbers);
                 chart.labels.push(paper.set());
                 chart.labels[i].push(paper[mark](x + 5, h, 5).attr({ fill: clr, stroke: "none" }));
                 chart.labels[i].push(txt = paper.text(x + 20, h, labels[j] || values[j]).attr(chartinst.txtattr).attr({ fill: opts.legendcolor || "#000", "text-anchor": "start"}));

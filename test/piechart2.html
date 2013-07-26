@@ -11,7 +11,7 @@
         <script type="text/javascript" charset="utf-8">
             window.onload = function () {
                 var r = Raphael("holder"),
-                    pie = r.piechart(320, 240, 100, [55, 20, 13, 32, 5, 1, 2, 10], { legend: ["%%.%% - Enterprise Users", "IE Users"], legendpos: "west", href: ["http://raphaeljs.com", "http://g.raphaeljs.com"]});
+                    pie = r.piechart(320, 240, 100, [1055, 1020, 1013, 1032, 105, 10101, 102, 1010], { legend: ["%%.%% - Enterprise Users - ##", "IE Users"], legendpos: "west", href: ["http://raphaeljs.com", "http://g.raphaeljs.com"], reformat_numbers: 'reduce_number'});
 
                 r.text(320, 100, "Interactive Pie Chart").attr({ font: "20px 'Fontin Sans', Fontin-Sans, sans-serif" });
                 pie.hover(function () {

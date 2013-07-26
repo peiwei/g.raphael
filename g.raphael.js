@@ -848,18 +848,58 @@ Raphael.g = {
         return res;
     },
     
-    labelise: function(label, val, total) {
+    labelise: function(label, val, total, reformat_numbers) {
         if (label) {
             return (label + "").replace(/(##+(?:\.#+)?)|(%%+(?:\.%+)?)/g, function (all, value, percent) {
                 if (value) {
-                    return (+val).toFixed(value.replace(/^#+\.?/g, "").length);
+                    switch (reformat_numbers) {
+                        case 'reduce_number':
+                            if (999 < val && val < 1000000) {
+                                return (+val / 1000).toFixed(1) + 'K';
+                            } else if (999999 < val && val < 1000000000) {
+                                return (+val / 1000000).toFixed(1) + 'M';
+                            } else if (999999999 < val && val < 1000000000000) {
+                                return (+val / 1000000000).toFixed(1) + 'G';
+                            } else if (999999999999 < val) {
+                                return (+val / 1000000000000).toFixed(1) + 'T';
+                            }
+                            return (+val).toFixed(0);
+                            break;
+                        case 'comma_separate':
+                            return (+val).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            break;
+                        default:
+                            return (+val).toFixed(value.replace(/^#+\.?/g, "").length);
+                            break;
+
+                    }
                 }
                 if (percent) {
                     return (val * 100 / total).toFixed(percent.replace(/^%+\.?/g, "").length) + "%";
                 }
             });
         } else {
-            return (+val).toFixed(0);
+            switch (reformat_numbers) {
+                case 'reduce_number':
+                    if (999 < val && val < 1000000) {
+                        return (+val / 1000).toFixed(1) + 'K';
+                    } else if (999999 < val && val < 1000000000) {
+                        return (+val / 1000000).toFixed(1) + 'M';
+                    } else if (999999999 < val && val < 1000000000000) {
+                        return (+val / 1000000000).toFixed(1) + 'G';
+                    } else if (999999999999 < val) {
+                        return (+val / 1000000000000).toFixed(1) + 'T';
+                    }
+                    return (+val).toFixed(0);
+                    break;
+                case 'comma_separate':
+                    return (+val).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    break;
+                default:
+                    return (+val).toFixed(0);
+                    break;
+
+            }
         }
     }
 }
